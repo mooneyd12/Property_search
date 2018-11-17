@@ -9,20 +9,6 @@ class Search extends React.Component {
       propertyType: "",
       bedrooms: ""
     };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    var target = event.target;
-    var value = target.value;
-    var name = target.name;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
   }
 
   render() {
