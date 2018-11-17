@@ -9,6 +9,15 @@ class Search extends React.Component {
       propertyType: "",
       bedrooms: ""
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    var target = event.target;
+    var value = target.value;
+    var name = target.name;
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
@@ -22,6 +31,7 @@ class Search extends React.Component {
             name="location"
             value={this.state.location}
             placeholder="Enter a location"
+            onChange={this.handleChange}
           />
           <input
             type="number"
@@ -29,11 +39,13 @@ class Search extends React.Component {
             name="radius"
             value={this.state.radius}
             placeholder="Radius(km)"
+            onChange={this.handleChange}
           />
           <select
             className="input"
             name="property-type"
             value={this.state.propertyType}
+            onChange={this.handleChange}
           >
             <option value="house">House</option>
             <option value="flat">Flat</option>
@@ -45,6 +57,7 @@ class Search extends React.Component {
             name="bedrooms"
             value={this.state.bedrooms}
             placeholder="No. of bedrooms"
+            onChange={this.handleChange}
           />
           <button type="submit" className="input">
             Search
