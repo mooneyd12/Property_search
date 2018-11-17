@@ -1,0 +1,15 @@
+.App {
+  padding: 10px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin: 5px;
+  padding: 5px;
+}
