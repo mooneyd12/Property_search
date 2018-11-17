@@ -1,5 +1,5 @@
 import React from "react";
-
+import config from "./config.js";
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -7,9 +7,11 @@ class Search extends React.Component {
       location: "",
       radius: "",
       propertyType: "",
-      bedrooms: ""
+      bedrooms: "",
+      output: ""
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     var target = event.target;
@@ -20,11 +22,49 @@ class Search extends React.Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const url =
+      "https://api.adzuna.com:443/v1/api/property/gb/search/1?app_id=" +
+      config.api_Id +
+      "&app_key=" +
+      config.api_Key +
+      "&results_per_page=10&category=for-sale&where=" +
+      this.state.location +
+      "&distance=" +
+      this.state.radius;
+    "&property_type=" +
+      this.state.propertyType +
+      "&beds=" +
+      this.state.bedrooms;
+    let header = {
+      mode: "no-cors"
+    };
+    fetch(url, { header })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data.results);
+        let searchResults = data.results;
+        let propertyListing = searchResults.map(property => {
+          return (
+            <div className="property" key={property.id}>
+              £{property.sale_price}
+            </div>
+          );
+        });
+        this.setState({
+          output: propertyListing
+        });
+      });
+  }
+
   render() {
     return (
       <div>
         Search form
-        <form className="search-form">
+        <form className="search-form" onSubmit={this.handleSubmit}>
           <input
             type="text"
             className="input"
@@ -63,6 +103,7 @@ class Search extends React.Component {
             Search
           </button>
         </form>
+        <div>{this.state.output}</div>
       </div>
     );
   }
