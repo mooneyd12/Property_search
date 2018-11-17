@@ -83,11 +83,13 @@ class Search extends React.Component {
           />
           <select
             className="input"
-            name="property-type"
+            name="propertyType"
             value={this.state.propertyType}
             onChange={this.handleChange}
           >
-            <option value="house">House</option>
+            <option value="house" defaultValue>
+              House
+            </option>
             <option value="flat">Flat</option>
             <option value="flat_maisonette">Maisonette</option>
           </select>
