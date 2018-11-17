@@ -32,8 +32,8 @@ class Search extends React.Component {
       "&results_per_page=10&category=for-sale&where=" +
       this.state.location +
       "&distance=" +
-      this.state.radius;
-    "&property_type=" +
+      this.state.radius +
+      "&property_type=" +
       this.state.propertyType +
       "&beds=" +
       this.state.bedrooms;
@@ -43,20 +43,34 @@ class Search extends React.Component {
     fetch(url, { header })
       .then(response => {
         return response.json();
+        console.log("fetch successful");
       })
       .then(data => {
         console.log(data.results);
         let searchResults = data.results;
+        let imageStyle = {
+          width: "100%"
+        };
         let propertyListing = searchResults.map(property => {
           return (
             <div className="property" key={property.id}>
-              £{property.sale_price}
+              <img
+                className="property-image"
+                src={property.image_url}
+                alt="property image"
+              />
+              <p className="property-bio">{property.title}</p>
+              <p className="property-price">£{property.sale_price}</p>
+              <i className="fa fa-bed fa-lg">{property.beds}</i>
             </div>
           );
         });
         this.setState({
           output: propertyListing
         });
+      })
+      .catch(err => {
+        console.log("fetch unsuccessful");
       });
   }
 
