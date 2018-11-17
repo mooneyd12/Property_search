@@ -54,14 +54,17 @@ class Search extends React.Component {
         let propertyListing = searchResults.map(property => {
           return (
             <div className="property" key={property.id}>
+              <h5 className="property-title">
+                {property.location.display_name}
+              </h5>
               <img
                 className="property-image"
                 src={property.image_url}
                 alt="property image"
               />
+
               <p className="property-bio">{property.title}</p>
               <p className="property-price">£{property.sale_price}</p>
-              <i className="fa fa-bed fa-lg">{property.beds}</i>
             </div>
           );
         });
@@ -77,7 +80,6 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        Search form
         <form className="search-form" onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -101,9 +103,7 @@ class Search extends React.Component {
             value={this.state.propertyType}
             onChange={this.handleChange}
           >
-            <option value="house" defaultValue>
-              House
-            </option>
+            <option value="house">House</option>
             <option value="flat">Flat</option>
             <option value="flat_maisonette">Maisonette</option>
           </select>
@@ -119,7 +119,7 @@ class Search extends React.Component {
             Search
           </button>
         </form>
-        <div>{this.state.output}</div>
+        <div className="properties-container">{this.state.output}</div>
       </div>
     );
   }

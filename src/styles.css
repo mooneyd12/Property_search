@@ -13,3 +13,36 @@
   margin: 5px;
   padding: 5px;
 }
+
+.properties-container {
+  margin-top: 15px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.property {
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.property-image {
+  width: 150px;
+}
+
+.proprty-title,
+.property-price {
+  font-size: 14px;
+}
+
+.property-bio {
+  font-size: 12px;
+  color: rgb(124, 122, 122);
+}
+
+.property-price {
+  color: rgb(77, 77, 77);
+}
