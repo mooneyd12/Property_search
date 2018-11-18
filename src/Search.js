@@ -48,9 +48,6 @@ class Search extends React.Component {
       .then(data => {
         console.log(data.results);
         let searchResults = data.results;
-        let imageStyle = {
-          width: "100%"
-        };
         let propertyListing = searchResults.map(property => {
           return (
             <div className="property" key={property.id}>
@@ -103,7 +100,9 @@ class Search extends React.Component {
             value={this.state.propertyType}
             onChange={this.handleChange}
           >
-            <option value="house">House</option>
+            <option value="house" defaultValue>
+              House
+            </option>
             <option value="flat">Flat</option>
             <option value="flat_maisonette">Maisonette</option>
           </select>
