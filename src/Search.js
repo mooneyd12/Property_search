@@ -133,7 +133,7 @@ class Search extends React.Component {
               <div className="property-info">
                 <p className="property-price">£{property.sale_price}</p>
                 <p className="property-bio">{property.title}</p>
-                <MediaQuery minWidth={751}>
+                <MediaQuery minWidth={1040}>
                   {matches => {
                     return matches ? (
                       <p className="property-desc">{property.description}</p>
