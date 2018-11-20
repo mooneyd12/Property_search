@@ -14,10 +14,6 @@
   padding: 5px;
 }
 
-* {
-  outline: 1px solid red;
-}
-
 .properties-container {
   margin: 15px auto;
   display: flex;

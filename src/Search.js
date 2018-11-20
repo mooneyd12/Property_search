@@ -8,7 +8,7 @@ class Search extends React.Component {
       radius: 5,
       propertyType: "house",
       bedrooms: 2,
-      output: ""
+      output: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,26 +48,8 @@ class Search extends React.Component {
       })
       .then(data => {
         console.log(data.results);
-        let searchResults = data.results;
-        let propertyListing = searchResults.map(property => {
-          return (
-            <div className="property" key={property.id}>
-              <h5 className="property-title">
-                {property.location.display_name}
-              </h5>
-              <img
-                className="property-image"
-                src={property.image_url}
-                alt="property image"
-              />
-
-              <p className="property-price">£{property.sale_price}</p>
-              <p className="property-bio">{property.title}</p>
-            </div>
-          );
-        });
         this.setState({
-          output: propertyListing
+          output: data.results
         });
       })
       .catch(err => {
@@ -76,8 +58,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const isDesktop = this.state.isDesktop;
-    const detailedPropertyListing = this.detailedPropertyListing;
+    const {output} = this.state;
     return (
       <div>
         <form className="search-form" onSubmit={this.handleSubmit}>
@@ -121,7 +102,22 @@ class Search extends React.Component {
             Search
           </button>
         </form>
-        <div className="properties-container">{this.state.output}</div>
+        <div className="properties-container">
+          {output.map((property) => (
+            <div className="property" key={property.id}>
+              <h5 className="property-title">
+                {property.location.display_name}
+              </h5>
+              <img
+                className="property-image"
+                src={property.image_url}
+                alt="property image"
+              />
+              <p className="property-price">£{property.sale_price}</p>
+              <p className="property-bio">{property.title}</p>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
