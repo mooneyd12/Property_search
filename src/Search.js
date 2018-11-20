@@ -4,15 +4,16 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: "",
-      radius: "",
-      propertyType: "",
-      bedrooms: "",
+      location: "london",
+      radius: 5,
+      propertyType: "house",
+      bedrooms: 2,
       output: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange(event) {
     var target = event.target;
     var value = target.value;
@@ -29,7 +30,7 @@ class Search extends React.Component {
       config.api_Id +
       "&app_key=" +
       config.api_Key +
-      "&results_per_page=10&category=for-sale&where=" +
+      "&results_per_page=12&category=for-sale&where=" +
       this.state.location +
       "&distance=" +
       this.state.radius +
@@ -48,9 +49,6 @@ class Search extends React.Component {
       .then(data => {
         console.log(data.results);
         let searchResults = data.results;
-        let imageStyle = {
-          width: "100%"
-        };
         let propertyListing = searchResults.map(property => {
           return (
             <div className="property" key={property.id}>
@@ -63,8 +61,8 @@ class Search extends React.Component {
                 alt="property image"
               />
 
-              <p className="property-bio">{property.title}</p>
               <p className="property-price">£{property.sale_price}</p>
+              <p className="property-bio">{property.title}</p>
             </div>
           );
         });
@@ -78,6 +76,8 @@ class Search extends React.Component {
   }
 
   render() {
+    const isDesktop = this.state.isDesktop;
+    const detailedPropertyListing = this.detailedPropertyListing;
     return (
       <div>
         <form className="search-form" onSubmit={this.handleSubmit}>
@@ -103,7 +103,9 @@ class Search extends React.Component {
             value={this.state.propertyType}
             onChange={this.handleChange}
           >
-            <option value="house">House</option>
+            <option value="house" defaultValue>
+              House
+            </option>
             <option value="flat">Flat</option>
             <option value="flat_maisonette">Maisonette</option>
           </select>
