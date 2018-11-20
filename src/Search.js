@@ -1,4 +1,5 @@
 import React from "react";
+import MediaQuery from "react-responsive";
 import config from "./config.js";
 class Search extends React.Component {
   constructor(props) {
@@ -8,10 +9,12 @@ class Search extends React.Component {
       radius: 5,
       propertyType: "house",
       bedrooms: 2,
-      output: []
+      output: [],
+      window: window.innerWidth
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleWindowSizeChange = this.handleWindowSizeChange.bind(this);
   }
 
   handleChange(event) {
@@ -57,8 +60,21 @@ class Search extends React.Component {
       });
   }
 
+  componentWillMount() {
+    window.addEventListener("resize", this.handleWindowSizeChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange() {
+    this.setState({ width: window.innerWidth });
+  }
+
   render() {
-    const {output} = this.state;
+    const { output, width } = this.state;
+    const isDesktop = width >= 751;
     return (
       <div>
         <form className="search-form" onSubmit={this.handleSubmit}>
@@ -102,8 +118,9 @@ class Search extends React.Component {
             Search
           </button>
         </form>
+
         <div className="properties-container">
-          {output.map((property) => (
+          {output.map(property => (
             <div className="property" key={property.id}>
               <h5 className="property-title">
                 {property.location.display_name}
@@ -113,8 +130,17 @@ class Search extends React.Component {
                 src={property.image_url}
                 alt="property image"
               />
-              <p className="property-price">£{property.sale_price}</p>
-              <p className="property-bio">{property.title}</p>
+              <div className="property-info">
+                <p className="property-price">£{property.sale_price}</p>
+                <p className="property-bio">{property.title}</p>
+                <MediaQuery minWidth={751}>
+                  {matches => {
+                    return matches ? (
+                      <p className="property-desc">{property.description}</p>
+                    ) : null;
+                  }}
+                </MediaQuery>
+              </div>
             </div>
           ))}
         </div>

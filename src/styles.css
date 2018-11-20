@@ -67,7 +67,30 @@
 
 @media screen and (min-width: 751px) and (max-width: 900px) {
   .property {
-    width: calc(33.3% - 25px);
+    width: calc(50% - 25px);
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .property-title,
+  .property-price {
+    font-size: 16px;
+  }
+  .property-bio {
+    font-size: 14px;
+  }
+  .property-image {
+    align-self: center;
+  }
+  .property-info {
+    padding: 5px;
+    text-align: center;
+  }
+  .property-desc {
+    font-size: 12px;
+    line-height: 1.5em;
   }
 }
 
